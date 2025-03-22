@@ -8,7 +8,7 @@ Add-WindowsCapability -online -Name $featureToAdd -Source $lofSource -LimitAcces
 $onDemandPKG="Microsoft-Windows-NetFx3-OnDemand-Package~31bf3856ad364e35~amd64~~.cab"
 Add-WindowsPackage -Online -PackagePath $lofSource\$onDemandPKG
 
-$allRSAT=Get-WindowsCapability -Online -Name *rsat*
+$allRSAT=(Get-WindowsCapability -Online -Name *rsat*).name
 foreach ($curRSAT in $allRSAT) {Add-WindowsCapability -online -Name $curRSAT -Source $lofSource -LimitAccess}
 (Get-WindowsCapability -Online -Name *rsat*).name | ForEach-Object {Add-WindowsCapability -online -Name $_ -Source $lofSource -LimitAccess}
 
